@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "coffee.amo.casting_crystals.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "casting_crystals.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
