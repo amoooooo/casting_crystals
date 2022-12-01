@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "casting_crystals:item/crystal_outer",
+        "layer1": "casting_crystals:item/crystal_inner"
+    }
+}

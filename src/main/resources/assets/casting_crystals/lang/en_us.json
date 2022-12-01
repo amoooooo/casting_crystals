@@ -1,7 +1,8 @@
 {
   "key.casting_crystals.casting_crystal_1": "Cast Crystal 1",
-  "key.casting_crystals.casting_crystal_2":  "Cast Crystal 2",
+  "key.casting_crystals.casting_crystal_2": "Cast Crystal 2",
   "key.casting_crystals.casting_crystal_3": "Cast Crystal 3",
   "curios.identifier.casting_crystal": "Casting Crystal",
-  "key.categories.casting_crystals": "Casting Crystals"
+  "key.categories.casting_crystals": "Casting Crystals",
+  "item.casting_crystals.casting_crystal": "Casting Crystal"
 }

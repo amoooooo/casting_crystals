@@ -1,6 +1,6 @@
 package coffee.amo.casting_crystals;
 
-import coffee.amo.casting_crystals.caps.CrystalCooldownCapabilityProvider;
+import coffee.amo.casting_crystals.client.ClientUtil;
 import coffee.amo.casting_crystals.config.CastingCrystalsConfig;
 import coffee.amo.casting_crystals.net.PacketHandler;
 import coffee.amo.casting_crystals.net.ServerboundCrystalCastPacket;
@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -46,6 +47,11 @@ public class ClientForgeEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void drawHudElements(RenderGuiOverlayEvent.Post event){
+        ClientUtil.drawHud(event);
+    }
+
     public static void castCrystal(Player player, int slot) {
         List<SlotResult> stack = CuriosApi.getCuriosHelper().findCurios(player, "casting_crystal");
         if(stack.size() <= slot) return;
@@ -54,19 +60,11 @@ public class ClientForgeEvents {
         if(crystal.equals(ItemStack.EMPTY)) return;
         if(crystal.getItem() instanceof CasterTome tome){
             if(CastingCrystalsConfig.enableCooldowns.get()){
-                crystal.getCapability(CrystalCooldownCapabilityProvider.CAPABILITY).ifPresent(s -> {
-                    if(player.getAttributes().hasAttribute(COOLDOWN_REDUCTION.get())){
-                        if(s.getCooldown() <= 0){
-                            CastingUtil.use(player.level, player, InteractionHand.MAIN_HAND, crystal);
-                            float reduction = (float) player.getAttributes().getValue(COOLDOWN_REDUCTION.get());
-                            if(reduction > 0){
-                                reduction = reduction/100f;
-                            }
-                            s.setCooldown((float) (CastingCrystalsConfig.baseCooldown.get() * (1 - (reduction))));
-                            PacketHandler.INSTANCE.send(PacketDistributor.SERVER.noArg(), new ServerboundCrystalCastPacket(player.getUUID(), slot));
-                        }
-                    }
-                });
+                if(!player.getCooldowns().isOnCooldown(crystal.getItem())){
+                    player.getCooldowns().addCooldown(crystal.getItem(), (int) Math.floor(CastingCrystalsConfig.baseCooldown.get()));
+                    CastingUtil.use(player.level, player, InteractionHand.MAIN_HAND, crystal);
+                    PacketHandler.INSTANCE.send(PacketDistributor.SERVER.noArg(), new ServerboundCrystalCastPacket(player.getUUID(), slot));
+                }
             } else {
                 CastingUtil.use(player.level, player, InteractionHand.MAIN_HAND, crystal);
                 PacketHandler.INSTANCE.send(PacketDistributor.SERVER.noArg(), new ServerboundCrystalCastPacket(player.getUUID(), slot));

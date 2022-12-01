@@ -1,6 +1,5 @@
 package coffee.amo.casting_crystals.net;
 
-import coffee.amo.casting_crystals.caps.CrystalCooldownCapabilityProvider;
 import coffee.amo.casting_crystals.config.CastingCrystalsConfig;
 import coffee.amo.casting_crystals.util.CastingUtil;
 import com.hollingsworth.arsnouveau.common.items.CasterTome;
@@ -42,18 +41,10 @@ public class ServerboundCrystalCastPacket {
             ItemStack crystal = CuriosApi.getCuriosHelper().findCurios(player, "casting_crystal").get(msg.crystalSlot).stack();
             if(crystal.getItem() instanceof CasterTome tome){
                 if(CastingCrystalsConfig.enableCooldowns.get()){
-                    crystal.getCapability(CrystalCooldownCapabilityProvider.CAPABILITY).ifPresent(s -> {
-                        if(player.getAttributes().hasAttribute(COOLDOWN_REDUCTION.get())){
-                            if(s.getCooldown() <= 0){
-                                CastingUtil.use(player.level, player, InteractionHand.MAIN_HAND, crystal);
-                                float reduction = (float) player.getAttributes().getValue(COOLDOWN_REDUCTION.get());
-                                if(reduction > 0){
-                                    reduction = reduction/100f;
-                                }
-                                s.setCooldown((float) (CastingCrystalsConfig.baseCooldown.get() * (1 - (reduction))));
-                            }
-                        }
-                    });
+                    if(!player.getCooldowns().isOnCooldown(crystal.getItem())){
+                        player.getCooldowns().addCooldown(crystal.getItem(), (int) Math.floor(CastingCrystalsConfig.baseCooldown.get()));
+                        CastingUtil.use(player.level, player, InteractionHand.MAIN_HAND, crystal);
+                    }
                 } else {
                     CastingUtil.use(player.level, player, InteractionHand.MAIN_HAND, crystal);
                 }

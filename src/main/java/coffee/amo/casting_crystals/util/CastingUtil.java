@@ -17,7 +17,7 @@ public class CastingUtil {
             ISpellCaster caster = tome.getSpellCaster(stack);
             Spell spell = caster.getSpell();
             // Let even a new player cast 1 charge of a tome
-            spell.addDiscount(spell.getDiscountedCost());
+            spell.addDiscount(spell.getNoDiscountCost());
             return caster.castSpell(worldIn, playerIn, handIn, Component.translatable(""), spell);
         }
         return InteractionResultHolder.pass(stack);

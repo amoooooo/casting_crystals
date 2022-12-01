@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "casting_crystals:casting_crystal",
-    "ars_nouveau:caster_tome"
+    "casting_crystals:casting_crystal"
   ]
 }

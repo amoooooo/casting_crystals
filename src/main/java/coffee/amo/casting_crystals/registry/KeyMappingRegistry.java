@@ -14,7 +14,6 @@ public class KeyMappingRegistry {
     public static final KeyMapping CAST_1 = new KeyMapping("key.casting_crystals.casting_crystal_1", GLFW.GLFW_KEY_1, "key.categories.casting_crystals");
     public static final KeyMapping CAST_2 = new KeyMapping("key.casting_crystals.casting_crystal_2", GLFW.GLFW_KEY_2, "key.categories.casting_crystals");
     public static final KeyMapping CAST_3 = new KeyMapping("key.casting_crystals.casting_crystal_3", GLFW.GLFW_KEY_3, "key.categories.casting_crystals");
-    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onKeyMappingEvent(RegisterKeyMappingsEvent event){
         CAST_1.setKeyModifierAndCode(KeyModifier.CONTROL, CAST_1.getKey());

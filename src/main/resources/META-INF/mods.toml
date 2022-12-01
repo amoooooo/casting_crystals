@@ -19,9 +19,9 @@ modId = "casting_crystals" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 # ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
 # see the associated build.gradle script for how to populate this completely automatically during a build
-version = "${file.jarVersion}" #mandatory
+version = "1.0.0" #mandatory
 # A display name for the mod
-displayName = "CastingCrystals" #mandatory
+displayName = "Casting Crystals" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
 #updateJSONURL="http://myurl.me/" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
@@ -42,7 +42,7 @@ authors = "amo" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
-
+A lightweight mod to aid in casting spells without a spellbook.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.casting_crystals]] #optional
@@ -62,5 +62,11 @@ modId = "minecraft"
 mandatory = true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange = "[1.19.2,1.20)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.casting_crystals]]
+modId = "ars_nouveau"
+mandatory = true
+versionRange = "[3.4.5.240,)"
 ordering = "NONE"
 side = "BOTH"
