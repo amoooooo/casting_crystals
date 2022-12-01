@@ -17,7 +17,7 @@ plugins {
 apply plugin: 'org.spongepowered.mixin'
 
 group = 'coffee.amo'
-version = '1.0.0'
+version = '1.0.2'
 
 java {
     archivesBaseName = 'casting_crystals'
