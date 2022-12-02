@@ -1,5 +1,6 @@
 package coffee.amo.casting_crystals.client;
 
+import com.hollingsworth.arsnouveau.api.item.ICasterTool;
 import com.hollingsworth.arsnouveau.api.spell.ISpellCaster;
 import com.hollingsworth.arsnouveau.common.items.CasterTome;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -22,7 +23,7 @@ public class ClientUtil {
         }
         for(int i = 0; i < size; i++){
             ItemStack crystal = CuriosApi.getCuriosHelper().findCurios(Minecraft.getInstance().player, "casting_crystal").get(i).stack();
-            if(!(crystal.getItem() instanceof CasterTome tome)) return;
+            if(!(crystal.getItem() instanceof ICasterTool tome)) return;
             ISpellCaster caster = tome.getSpellCaster(crystal);
             int color = lerpColor(0xFFFFFF, caster.getSpell().color.getColor(), Minecraft.getInstance().player.getCooldowns().getCooldownPercent(crystal.getItem(), event.getPartialTick()));
             float x = (width/2)-88+(20*i);

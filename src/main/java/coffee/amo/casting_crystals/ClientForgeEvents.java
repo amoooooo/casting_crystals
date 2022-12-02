@@ -6,6 +6,7 @@ import coffee.amo.casting_crystals.net.PacketHandler;
 import coffee.amo.casting_crystals.net.ServerboundCrystalCastPacket;
 import coffee.amo.casting_crystals.registry.KeyMappingRegistry;
 import coffee.amo.casting_crystals.util.CastingUtil;
+import com.hollingsworth.arsnouveau.api.item.ICasterTool;
 import com.hollingsworth.arsnouveau.common.items.CasterTome;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionHand;
@@ -58,7 +59,7 @@ public class ClientForgeEvents {
         if(stack.isEmpty() || stack.get(slot) == null) return;
         ItemStack crystal = stack.get(slot).stack();
         if(crystal.equals(ItemStack.EMPTY)) return;
-        if(crystal.getItem() instanceof CasterTome tome){
+        if(crystal.getItem() instanceof ICasterTool tome){
             if(CastingCrystalsConfig.enableCooldowns.get()){
                 if(!player.getCooldowns().isOnCooldown(crystal.getItem())){
                     player.getCooldowns().addCooldown(crystal.getItem(), (int) Math.floor(CastingCrystalsConfig.baseCooldown.get()));

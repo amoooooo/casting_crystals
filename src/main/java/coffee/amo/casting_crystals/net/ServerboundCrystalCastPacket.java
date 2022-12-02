@@ -2,6 +2,7 @@ package coffee.amo.casting_crystals.net;
 
 import coffee.amo.casting_crystals.config.CastingCrystalsConfig;
 import coffee.amo.casting_crystals.util.CastingUtil;
+import com.hollingsworth.arsnouveau.api.item.ICasterTool;
 import com.hollingsworth.arsnouveau.common.items.CasterTome;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
@@ -39,7 +40,7 @@ public class ServerboundCrystalCastPacket {
             Player player = ctx.get().getSender();
             if(player == null) return;
             ItemStack crystal = CuriosApi.getCuriosHelper().findCurios(player, "casting_crystal").get(msg.crystalSlot).stack();
-            if(crystal.getItem() instanceof CasterTome tome){
+            if(crystal.getItem() instanceof ICasterTool tome){
                 if(CastingCrystalsConfig.enableCooldowns.get()){
                     if(!player.getCooldowns().isOnCooldown(crystal.getItem())){
                         player.getCooldowns().addCooldown(crystal.getItem(), (int) Math.floor(CastingCrystalsConfig.baseCooldown.get()));

@@ -48,7 +48,7 @@ public class CastingCrystal extends ModItem implements ICasterTool {
 
     @Override
     public boolean overrideOtherStackedOnMe(ItemStack pStack, ItemStack pOther, Slot pSlot, ClickAction pAction, Player pPlayer, SlotAccess pAccess) {
-        if(pOther.getItem() instanceof CasterTome) {
+        if(pOther.getItem() instanceof ICasterTool) {
             ISpellCaster otherCaster = CasterUtil.getCaster(pOther);
             ISpellCaster thisCaster = CasterUtil.getCaster(pStack);
             if(thisCaster.getSpell().isEmpty()){
